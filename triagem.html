@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triagem Inteligente - Aura Health</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" class="logo-link" aria-label="Ir para Início">
+                    <span class="logo-icon">✦</span>
+                    <span>Aura Health</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="painel.html">Painel</a></li>
+                <li><a href="triagem.html" class="active">Triagem</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="triagem-main">
+        <section class="triagem-container">
+            <div id="triageForm" class="triage-form glass">
+                <h1>Triagem Inteligente</h1>
+                <p class="triage-subtitle">Responda as perguntas para avaliação de risco</p>
+                
+                <form id="questionForm">
+                    <div class="question-group">
+                        <label class="question">
+                            <span class="q-number">1</span>
+                            Apresenta febre acima de 38°C?
+                            <div class="options">
+                                <button type="button" class="option-btn" onclick="selectAnswer(this, 'q1', 'sim', 2)">Sim</button>
+                                <button type="button" class="option-btn" onclick="selectAnswer(this, 'q1', 'não', 0)">Não</button>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question">
+                            <span class="q-number">2</span>
+                            Tem dores nas articulações ou músculos?
+                            <div class="options">
+                                <button type="button" class="option-btn" onclick="selectAnswer(this, 'q2', 'sim', 1)">Sim</button>
+                                <button type="button" class="option-btn" onclick="selectAnswer(this, 'q2', 'não', 0)">Não</button>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question">
+                            <span class="q-number">3</span>
+                            Apresenta manchas vermelhas na pele?
+                            <div class="options">
+                                <button type="button" class="option-btn" onclick="selectAnswer(this, 'q3', 'sim', 3)">Sim</button>
+                                <button type="button" class="option-btn" onclick="selectAnswer(this, 'q3', 'não', 0)">Não</button>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question">
+                            <span class="q-number">4</span>
+                            Teve contato com pessoa infectada?
+                            <div class="options">
+                                <button type="button" class="option-btn" onclick="selectAnswer(this, 'q4', 'sim', 2)">Sim</button>
+                                <button type="button" class="option-btn" onclick="selectAnswer(this, 'q4', 'não', 0)">Não</button>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question">
+                            <span class="q-number">5</span>
+                            Está em área de risco epidemiológico?
+                            <div class="options">
+                                <button type="button" class="option-btn" onclick="selectAnswer(this, 'q5', 'sim', 2)">Sim</button>
+                                <button type="button" class="option-btn" onclick="selectAnswer(this, 'q5', 'não', 0)">Não</button>
+                            </div>
+                        </label>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="submitTriage()" style="width: 100%; margin-top: 20px;">
+                        Avaliar Risco
+                    </button>
+                </form>
+            </div>
+
+            <!-- Result Card -->
+            <div id="resultCard" class="result-card glass" style="display: none;">
+                <button class="close-btn" onclick="resetTriage()">✕</button>
+                <h2>Resultado da Avaliação</h2>
+                
+                <div class="result-content">
+                    <div id="resultBadge" class="result-badge"></div>
+                    <div class="result-details">
+                        <p id="resultTitle" class="result-title"></p>
+                        <p id="resultDescription" class="result-description"></p>
+                        <p id="resultRecommendation" class="result-recommendation"></p>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" onclick="resetTriage()">
+                    Reiniciar Triagem
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Aura Health</h4>
+                <p>Sistema de triagem inteligente para saúde pública.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links</h4>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="painel.html">Painel</a></li>
+                    <li><a href="triagem.html">Triagem</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Aura Health. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+        <script src="scripts.js"></script>
+        <script>
+            // Inline initializer to ensure hover-to-select works even if external scripts load async
+            (function(){
+                try {
+                    document.querySelectorAll('.options').forEach(function(options){
+                        options.querySelectorAll('.option-btn').forEach(function(btn){
+                            btn.addEventListener('mouseenter', function(){
+                                options.classList.add('hovering');
+                                btn.classList.add('hovered');
+                            });
+                            btn.addEventListener('mouseleave', function(){
+                                btn.classList.remove('hovered');
+                                if (!options.querySelector('.option-btn.hovered')) options.classList.remove('hovering');
+                            });
+                        });
+                    });
+                    console.log('triagem hover initializer attached')
+                } catch (e) {
+                    console.warn('triagem hover initializer failed', e)
+                }
+            })()
+        </script>
+</body>
+</html>

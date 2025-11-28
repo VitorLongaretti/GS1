@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Risco - Aura Health</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" class="logo-link" aria-label="Ir para Início">
+                    <span class="logo-icon">✦</span>
+                    <span>Aura Health</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="painel.html" class="active">Painel</a></li>
+                <li><a href="triagem.html">Triagem</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="painel-main">
+        <section class="painel-header">
+            <div class="header-content">
+                <h1>Mapa de Risco Sanitário</h1>
+                <p>Monitore o risco de surtos em tempo real por região</p>
+            </div>
+            <div class="painel-controls">
+                <button class="btn btn-danger" onclick="simulateDengue()">
+                    🦟 Simular Surto de Dengue
+                </button>
+                <button class="btn btn-success" onclick="reduceRisk()">
+                    ✓ Reduzir Risco
+                </button>
+            </div>
+        </section>
+
+        <!-- KPI Cards -->
+        <section class="kpi-cards-section">
+            <div class="kpi-card glass">
+                <div class="kpi-icon">📊</div>
+                <div class="kpi-stat">
+                    <div class="kpi-value" id="totalRiskCount">0</div>
+                    <div class="kpi-label">Regiões em Risco</div>
+                </div>
+            </div>
+            <div class="kpi-card glass">
+                <div class="kpi-icon">🦟</div>
+                <div class="kpi-stat">
+                    <div class="kpi-value" id="avgMosquito">0%</div>
+                    <div class="kpi-label">Índice Médio Mosquito</div>
+                </div>
+            </div>
+            <div class="kpi-card glass">
+                <div class="kpi-icon">⚠️</div>
+                <div class="kpi-stat">
+                    <div class="kpi-value" id="highRiskCount">0</div>
+                    <div class="kpi-label">Casos Críticos</div>
+                </div>
+            </div>
+            <div class="kpi-card glass">
+                <div class="kpi-icon">📈</div>
+                <div class="kpi-stat">
+                    <div class="kpi-value" id="avgForecast">0%</div>
+                    <div class="kpi-label">Previsão Média (7d)</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="risk-grid-container">
+            <div id="map" style="height: 600px; border-radius: 12px; overflow: hidden; box-shadow: 0 0 40px rgba(0, 212, 255, 0.2);"></div>
+        </section>
+
+        <!-- Detail Card -->
+        <div class="detail-modal" id="detailModal">
+            <div class="detail-card glass">
+                <button class="close-btn" onclick="closeDetail()">✕</button>
+                <h2 id="regionName">Região -</h2>
+                <div class="detail-content">
+                    <div class="detail-stat">
+                        <span class="label">Risco Atual:</span>
+                        <span class="value" id="riskLevel">-</span>
+                    </div>
+                    <div class="detail-stat">
+                        <span class="label">Previsão (7 dias):</span>
+                        <span class="value" id="forecast">-</span>
+                    </div>
+                    <div class="detail-stat">
+                        <span class="label">Índice de Mosquito:</span>
+                        <span class="value" id="mosquitoIndex">-</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="riskChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Aura Health</h4>
+                <p>Monitoramento de saúde pública em tempo real.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Painel</h4>
+                <ul>
+                    <li><a href="painel.html">Mapa de Risco</a></li>
+                    <li><a href="triagem.html">Triagem</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Aura Health. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
